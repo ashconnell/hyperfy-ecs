@@ -41,10 +41,14 @@ export class SystemManager {
   }
 
   update(delta) {
+    let timeBefore
+    const getTime = this.world.getTime
     for (let i = 0; i < this.systems.length; i++) {
       this.tick++
       const system = this.systems[i]
+      if (getTime) timeBefore = getTime()
       if (system.active) system.update(delta)
+      if (getTime) system.elapsedTime = getTime() - timeBefore
     }
   }
 

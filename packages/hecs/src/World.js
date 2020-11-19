@@ -18,6 +18,7 @@ export class World extends EventEmitter {
     this.archetypes = new ArchetypeManager(this)
     this.entities = new EntityManager(this)
     this.components = new ComponentManager(this)
+    this.getTime = options.getTime
     this.registerPlugin(
       createPlugin({
         name: 'root',
