@@ -2,6 +2,7 @@
   "name": "hecs-plugin-three",
   "version": "0.17.0",
   "main": "dist/hecs-plugin-three.js",
+  "files": ["src", "dist"],
   "scripts": {
     "start": "webpack --watch",
     "test": "jest",

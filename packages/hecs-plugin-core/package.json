@@ -2,6 +2,7 @@
   "name": "hecs-plugin-core",
   "version": "0.17.0",
   "main": "dist/hecs-plugin-core.js",
+  "files": ["src", "dist"],
   "scripts": {
     "start": "webpack --watch",
     "test": "jest",

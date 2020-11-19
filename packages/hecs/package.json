@@ -2,6 +2,7 @@
   "name": "hecs",
   "version": "0.17.0",
   "main": "dist/hecs.js",
+  "files": ["src", "dist"],
   "scripts": {
     "start": "webpack --watch",
     "test": "jest",

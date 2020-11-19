@@ -71,7 +71,6 @@ module.exports = env => {
   }
   if (isProduction) {
     config.mode = 'production'
-    config.devtool = false
   }
   return config
 }
