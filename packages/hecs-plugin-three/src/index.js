@@ -28,9 +28,9 @@ export default createPlugin({
   plugins: [CorePlugin],
   systems,
   components,
-  decorate(world) {
+  decorate(world, options) {
     if (IS_BROWSER) {
-      world.presentation = new Presentation(world)
+      world.presentation = new Presentation(world, options)
     }
   },
 })

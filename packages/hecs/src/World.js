@@ -28,14 +28,20 @@ export class World extends EventEmitter {
     this.systems.init()
   }
 
-  registerPlugin(plugin) {
+  registerPlugin(plugin, options = {}) {
     if (this.plugins.has(plugin)) {
       // console.warn(`hecs: already registered plugin '${plugin.name}'`)
       return
     }
     this.plugins.set(plugin, true)
-    plugin.plugins.forEach(plugin => {
-      this.registerPlugin(plugin)
+    plugin.plugins.forEach(entry => {
+      if (entry instanceof Array) {
+        const [plugin, options = {}] = entry
+        this.registerPlugin(plugin, options)
+      } else {
+        const plugin = entry
+        this.registerPlugin(plugin)
+      }
     })
     plugin.systems.forEach(System => {
       this.systems.register(System)
@@ -44,7 +50,7 @@ export class World extends EventEmitter {
       this.components.register(Component)
     })
     if (plugin.decorate) {
-      plugin.decorate(this)
+      plugin.decorate(this, options)
     }
     console.log(`hecs: registered plugin '${plugin.name}'`)
   }
