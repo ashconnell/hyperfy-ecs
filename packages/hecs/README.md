@@ -15,18 +15,34 @@ yarn add hecs
 ## Quickstart
 
 ```js
-import { World, System, Component, StateComponent, Types, Not, Modified } from 'hecs'
-import { Object3D } from './types'
+import {
+  World, System,
+  Component, StateComponent,
+  Not, Modified
+  StringType, RefType
+} from 'hecs'
+
+const exampleMeshes = {
+  // These would normally be objects in memory that have whatever
+  // data is needed for the Mesh to be rendered by an engine like
+  // three.js, babylon.js, etc.
+  basketball: {
+    description: "a ball and its pretend mesh data",
+    dispose: () => {
+      console.log("basketball mesh disposed");
+    },
+  } 
+}
 
 class Model extends Component {
   static props = {
-    type: Types.Text,
+    type: StringType,
   }
 }
 
 class Mesh extends StateComponent {
   static props = {
-    value: Object3D,
+    value: RefType,
   }
 }
 
@@ -40,13 +56,13 @@ class ModelSystem extends System {
   update() {
     this.queries.added.forEach(entity => {
       const model = entity.get(Model)
-      const object3d = getModel(model.type)
+      const object3d = exampleMeshes[model.type]
       entity.add(Mesh, { value: object3d })
     })
     this.queries.modified.forEach(entity => {
       entity.remove(Mesh)
       const model = entity.get(Model)
-      const object3d = getModel(model.type)
+      const object3d = exampleMeshes[model.type]
       entity.add(Mesh, { value: object3d })
     })
     this.queries.removed.forEach(entity => {
@@ -62,12 +78,23 @@ const world = new World({
   components: [Model, Mesh]
 })
 
-world.entities.create().add(Model, { type: 'basketball' }).activate()
+// Create an entity
+const entity = world.entities.create();
+
+// Add our custom `Model` component with its required `type` property
+entity.add(Model, { type: "basketball" }).activate();
+
+// ... then, to demonstrate queries in ModelSystem, destroy the entity 3 seconds later
+setTimeout(() => {
+  entity.destroy();
+}, 3000);
+
 
 function update() {
   world.update()
   requestAnimationFrame(update)
 }
+
 update()
 ```
 
