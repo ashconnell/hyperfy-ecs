@@ -6,19 +6,14 @@ let loader
 let textureLoader
 
 export class Presentation {
-  constructor(world) {
+  constructor(world, options) {
     this.world = world
     this.viewport = null
     this.size = { width: 1, height: 1 }
-    this.scene = this.createScene()
     this.object3ds = []
-    this.renderer = this.createRenderer()
-    this.camera = new THREE.PerspectiveCamera(
-      75,
-      this.size.width / this.size.height,
-      0.1,
-      1000
-    )
+    this.scene = options.scene || this.createScene()
+    this.renderer = options.renderer || this.createRenderer()
+    this.camera = options.camera || this.createCamera()
     this.resizeObserver = new ResizeObserver(this.onResize.bind(this))
     this.capture = new Capture(this)
     if (!loader) loader = new Loader()
@@ -124,5 +119,14 @@ export class Presentation {
     renderer.xr.setReferenceSpaceType('local-floor')
 
     return renderer
+  }
+
+  createCamera() {
+    return new THREE.PerspectiveCamera(
+      75,
+      this.size.width / this.size.height,
+      0.1,
+      1000
+    )
   }
 }

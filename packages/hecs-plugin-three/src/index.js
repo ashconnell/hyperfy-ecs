@@ -23,14 +23,16 @@ for (const key in Systems) {
   systems.push(Systems[key])
 }
 
-export default createPlugin({
-  name: 'hecs-plugin-three',
-  plugins: [CorePlugin],
-  systems,
-  components,
-  decorate(world) {
-    if (IS_BROWSER) {
-      world.presentation = new Presentation(world)
-    }
-  },
-})
+export default function ConfigurablePlugin(options) {
+  return createPlugin({
+    name: 'hecs-plugin-three',
+    plugins: [CorePlugin],
+    systems,
+    components,
+    decorate(world) {
+      if (IS_BROWSER) {
+        world.presentation = new Presentation(world, options || {})
+      }
+    },
+  })
+}
