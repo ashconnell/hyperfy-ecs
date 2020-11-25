@@ -8,8 +8,9 @@ export class SystemManager {
   }
 
   register(System) {
+    const name = System.className || System.name
     if (this.Systems.has(System)) {
-      console.warn(`hecs: already registered system '${System.name}'`)
+      console.warn(`hecs: already registered system '${name}'`)
       return
     }
     const system = new System(this.world)
@@ -21,7 +22,7 @@ export class SystemManager {
       position = i + 1
     }
     this.systems.splice(position, 0, system)
-    this.systemsByName[System.name] = system
+    this.systemsByName[name] = system
     return this
   }
 

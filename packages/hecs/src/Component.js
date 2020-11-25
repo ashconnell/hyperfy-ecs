@@ -4,7 +4,7 @@ export class Component {
 
   constructor(world, values = {}) {
     this.world = world
-    this.name = this.constructor.name
+    this.name = this.constructor.className || this.constructor.name
     this.props = []
     this.modifiedUntilSystemTick = 0
 

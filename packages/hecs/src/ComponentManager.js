@@ -7,11 +7,12 @@ export class ComponentManager {
   }
 
   register(Component) {
-    if (this.componentsByName[Component.name]) {
-      throw new Error(`hecs: component already registered '${Component.name}'`)
+    const name = Component.className || Component.name
+    if (this.componentsByName[name]) {
+      throw new Error(`hecs: component already registered '${name}'`)
     }
     Component.id = this.lastComponentId++
-    this.componentsByName[Component.name] = Component
+    this.componentsByName[name] = Component
     this.count++
     return this
   }
