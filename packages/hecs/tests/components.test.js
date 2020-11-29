@@ -37,6 +37,12 @@ describe('components', () => {
     expect(system.counts.active).toBe(1)
   })
 
+  test('get component by name', () => {
+    block.add(Model)
+    const model = block.getByName('Model')
+    expect(model).toEqual(block.get(Model))
+  })
+
   test('deactivate entity', () => {
     /**
      * Because the entity has no StateComponents, the entity

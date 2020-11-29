@@ -40,6 +40,11 @@ export class Entity {
     return this.components.get(Component)
   }
 
+  getByName(componentName) {
+    const Component = this.world.components.getByName(componentName)
+    return this.get(Component)
+  }
+
   has(Component) {
     return !!this.components.get(Component)
   }
