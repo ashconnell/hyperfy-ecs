@@ -12,7 +12,7 @@
   "peerDependencies": {
     "hecs": "^0.17.0",
     "hecs-plugin-core": "^0.17.0",
-    "three": "^0.119.1"
+    "three": "^0.125.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
@@ -27,7 +27,7 @@
     "hecs-plugin-core": "^0.17.0",
     "jest": "^26.1.0",
     "terser-webpack-plugin": "^4.1.0",
-    "three": "^0.119.1",
+    "three": "^0.125.0",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10"
   },
